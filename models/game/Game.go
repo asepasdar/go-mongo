@@ -12,7 +12,7 @@ type Game struct {
 	Description string `bson:"Description"`
 }
 
-//InsertData : insert new admin data
+//InsertData : insert new game data
 func (g Game) InsertData(con *mongo.Database) error {
 	var ctx = context.Background()
 	var err error

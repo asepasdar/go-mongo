@@ -19,6 +19,7 @@ func main() {
 	http.HandleFunc("/game/add", api.Add)
 	http.HandleFunc("/game/find", api.Find)
 	http.HandleFunc("/game/progress", api.Progress)
+	http.HandleFunc("/user/add", api.AddUser)
 
 	fmt.Println("server started at localhost:9000")
 	var address = "localhost:9000"
