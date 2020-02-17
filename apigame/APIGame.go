@@ -6,6 +6,7 @@ import (
 	mgame "admin/models/game"
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -18,6 +19,7 @@ func Progress(response http.ResponseWriter, request *http.Request) {
 		requestObject := struct {
 			Score int
 			Game  string
+			User  string
 		}{}
 		con := db.GetConnection()
 
@@ -26,11 +28,14 @@ func Progress(response http.ResponseWriter, request *http.Request) {
 			return
 		}
 
-		objID, _ := primitive.ObjectIDFromHex(requestObject.Game)
+		objGame, _ := primitive.ObjectIDFromHex(requestObject.Game)
+		objUser, _ := primitive.ObjectIDFromHex(requestObject.User)
 		var data = mgame.Progress{
 			ProgressID: primitive.NewObjectID(),
-			GameID:     objID,
+			GameID:     objGame,
+			UserID:     objUser,
 			Score:      requestObject.Score,
+			Created:    time.Now(),
 		}
 		if er := data.InsertData(con); er != nil {
 			jsonString, _ := json.Marshal(mapi.MongoExecutionFailed())

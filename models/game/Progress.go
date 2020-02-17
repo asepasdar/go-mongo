@@ -2,6 +2,7 @@ package mgame
 
 import (
 	"context"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,7 +12,9 @@ import (
 type Progress struct {
 	ProgressID primitive.ObjectID `bson:"_id, omitempty"`
 	GameID     primitive.ObjectID `bson:"GameID, omitempty"`
+	UserID     primitive.ObjectID `bson:"UserID, omitempty"`
 	Score      int                `bson:"Score"`
+	Created    time.Time          `bson:"Created"`
 }
 
 //InsertData : insert new admin data
