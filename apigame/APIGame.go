@@ -78,13 +78,14 @@ func Add(response http.ResponseWriter, request *http.Request) {
 }
 
 //Find : find data game
-func Find(response http.ResponseWriter, request *http.Request) {
+func FindGame(response http.ResponseWriter, request *http.Request) {
 	if request.Method == "GET" {
+		var con = db.GetConnection()
 		var collectionID = request.URL.Query().Get("id")
 		if collectionID != "" {
-			var con = db.GetConnection()
+
 			objID, _ := primitive.ObjectIDFromHex(collectionID)
-			var data = mgame.FindData(con, bson.M{"_id": objID})
+			var data = mgame.FindGame(con, bson.M{"_id": objID})
 
 			if data == (mgame.Game{}) {
 				jsonString, _ := json.Marshal(mapi.DataNotFound())
@@ -99,9 +100,11 @@ func Find(response http.ResponseWriter, request *http.Request) {
 			response.Write(jsonString)
 			return
 		}
-		jsonString, _ := json.Marshal(mapi.DataNotFound())
+
+		var criteria = map[string]interface{}{}
+		var data = mgame.FindAllGame(con, criteria)
+		jsonString, _ := json.Marshal(data)
 		response.Header().Set("Content-Type", "application/json")
-		response.WriteHeader(http.StatusBadRequest)
 		response.Write(jsonString)
 		return
 	}

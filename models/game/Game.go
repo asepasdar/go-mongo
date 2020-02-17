@@ -2,6 +2,8 @@ package mgame
 
 import (
 	"context"
+	"fmt"
+	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -21,8 +23,8 @@ func (g Game) InsertData(con *mongo.Database) error {
 	return err
 }
 
-//FindData : find admin data
-func FindData(con *mongo.Database, criteria map[string]interface{}) Game {
+//FindGame : find game data
+func FindGame(con *mongo.Database, criteria map[string]interface{}) Game {
 	var ctx = context.Background()
 	var data Game
 
@@ -30,4 +32,26 @@ func FindData(con *mongo.Database, criteria map[string]interface{}) Game {
 	myResult.Decode(&data)
 
 	return data
+}
+
+//FindAllGame : select all data from game depends on criteria
+func FindAllGame(con *mongo.Database, criteria map[string]interface{}) []Game {
+	var ctx = context.Background()
+
+	var qresult, err = con.Collection("Game").Find(ctx, criteria)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	result := make([]Game, 0)
+	for qresult.TryNext(ctx) {
+		var row Game
+		err := qresult.Decode(&row)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+
+		result = append(result, row)
+	}
+	return result
 }

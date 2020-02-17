@@ -16,9 +16,11 @@ func main() {
 	http.HandleFunc("/dashboard", c.Home)
 	http.HandleFunc("/ajaxgamegraph", c.AjaxGraph)
 
+	http.HandleFunc("/game", api.FindGame)
 	http.HandleFunc("/game/add", api.Add)
-	http.HandleFunc("/game/find", api.Find)
 	http.HandleFunc("/game/progress", api.Progress)
+
+	http.HandleFunc("/user", api.FindUser)
 	http.HandleFunc("/user/add", api.AddUser)
 
 	fmt.Println("server started at localhost:9000")
