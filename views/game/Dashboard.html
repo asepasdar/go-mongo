@@ -1,0 +1,495 @@
+{{define "dashboard"}}
+{{template "start-dashboard" .}}
+<!-- Dashboard content -->
+<div class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+    <div class="col-md-12">
+        <!-- Basic area chart -->
+        <div class="panel panel-flat">
+            <div class="row" style="padding:40px 40px 0px 40px;">
+                <form asp-controller="Home" asp-action="ExportGraph" method="post">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Data</label>
+                            <select class="select" name="Type" id="Type">
+                                <option value="Played">Game Played</option>
+                                <option value="User">Logged In Activity</option>
+                                <option value="Duration">Avg. Duration (minutes)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="select" name="Period" id="Period">
+                                <option value="M">Monthly</option>
+                                <option value="D">Daily</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-heading">
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="chart-container">
+                    <div class="chart has-fixed-height" id="basic_area"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Top 10 Leaderboard</h6>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="tabbable tab-content-bordered">
+                    <ul class="nav nav-tabs nav-tabs-highlight">
+                        <li class="active"><a href="#bordered-tab1" data-toggle="tab">Debby's Groceries</a></li>
+                        <li><a href="#bordered-tab2" data-toggle="tab">Going Viral</a></li>
+                        <li><a href="#bordered-tab3" data-toggle="tab">Ambulance Dash</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane has-padding active" id="bordered-tab1">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <select class="select" style="width:50%;" id="period-debby">
+                                            <option value="1">Season 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="heading-elements">
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Date</th>
+                                            <th>Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="body-debby">
+                                        <tr>
+                                            <td width="35%">
+                                                <div class="media-left media-middle">
+                                                    <button type="button" class="btn bg-success-400 btn-icon btn-rounded"><i class="icon-crown"></i></button>
+                                                </div>
+
+                                                <div class="media-body">
+                                                    <div class="media-heading">
+                                                        <a href="#" class="letter-icon-title">Dummy</a>
+                                                    </div>
+
+                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> Going Viral</div>
+                                                </div>
+                                            </td>
+                                            <td width="40%">
+                                                <button type="button" class="btn btn-primary btn-labeled no-change">
+                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>13 February 2020 - 13:02:52
+                                                </button>
+                                            </td>
+                                            <td width="25%">
+                                                <button type="button" class="btn bg-success-400 btn-rounded no-change">
+                                                    <i class="icon-dice position-left"></i>100
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane has-padding" id="bordered-tab2">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <select class="select" style="width:50%;" id="period-viral">
+                                            <option value="1">Season 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="heading-elements">
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Date</th>
+                                            <th>Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="body-viral">
+                                        <tr>
+                                            <td width="35%">
+                                                <div class="media-left media-middle">
+                                                    <button type="button" class="btn bg-success-400 btn-icon btn-rounded"><i class="icon-crown"></i></button>
+                                                </div>
+
+                                                <div class="media-body">
+                                                    <div class="media-heading">
+                                                        <a href="#" class="letter-icon-title">Dummy</a>
+                                                    </div>
+
+                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> Going Viral</div>
+                                                </div>
+                                            </td>
+                                            <td width="40%">
+                                                <button type="button" class="btn btn-primary btn-labeled no-change">
+                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>13 February 2020 - 13:02:52
+                                                </button>
+                                            </td>
+                                            <td width="25%">
+                                                <button type="button" class="btn bg-success-400 btn-rounded no-change">
+                                                    <i class="icon-dice position-left"></i>100
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane has-padding" id="bordered-tab3">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <select class="select" style="width:50%;" id="period-ambulance">
+                                            <option value="1">Season 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="heading-elements">
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Date</th>
+                                            <th>Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="body-ambulance">
+                                        <tr>
+                                            <td width="35%">
+                                                <div class="media-left media-middle">
+                                                    <button type="button" class="btn bg-success-400 btn-icon btn-rounded"><i class="icon-crown"></i></button>
+                                                </div>
+
+                                                <div class="media-body">
+                                                    <div class="media-heading">
+                                                        <a href="#" class="letter-icon-title">Dummy</a>
+                                                    </div>
+
+                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> Going Viral</div>
+                                                </div>
+                                            </td>
+                                            <td width="40%">
+                                                <button type="button" class="btn btn-primary btn-labeled no-change">
+                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>13 February 2020 - 13:02:52
+                                                </button>
+                                            </td>
+                                            <td width="25%">
+                                                <button type="button" class="btn bg-success-400 btn-rounded no-change">
+                                                    <i class="icon-dice position-left"></i>100
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
+    <div class="col-md-12">
+        <!-- My messages -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <div class="panel-title">
+                </div>
+            </div>
+
+            <!-- Numbers -->
+            <div class="container-fluid">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="content-group">
+                            <h6 class="text-semibold no-margin"><i class="icon-dice position-left text-slate" aria-hidden="true"></i> <span id="total-game-played">0</span></h6>
+                            <span class="text-muted text-size-small">Game Played</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="content-group">
+                            <h6 class="text-semibold no-margin"><i class="icon-statistics position-left text-slate" aria-hidden="true"></i> <span id="total-activities">0</span></h6>
+                            <span class="text-muted text-size-small">Activities</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="content-group">
+                            <h6 class="text-semibold no-margin"><i class="icon-users4 position-left text-slate" aria-hidden="true"></i> <span id="total-users">0</span></h6>
+                            <span class="text-muted text-size-small">Avg Users</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /numbers -->
+            <!-- Area chart -->
+            <div id="messages-stats"></div>
+            <!-- /area chart -->
+            <!-- Tabs -->
+            <ul class="nav nav-lg nav-tabs nav-justified no-margin no-border-radius bg-indigo-400 border-top border-top-indigo-300">
+                <li>
+                    <a href="#daily" id="daily" class="text-size-small text-uppercase" data-toggle="tab">
+                        Daily
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#weekly" id="weekly" class="text-size-small text-uppercase" data-toggle="tab">
+                        Weekly
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="#monthly" id="monthly" class="text-size-small text-uppercase" data-toggle="tab">
+                        Monthly
+                    </a>
+                </li>
+            </ul>
+            <!-- /tabs -->
+
+        </div>
+        <!-- /my messages -->
+    </div>
+    <div class="col-md-12">
+        <!-- Daily financials -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title">Recent User Activities</h6>
+                <div class="heading-elements">
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="content-group-xs" id="bullets"></div>
+
+                <ul class="media-list">
+                    <li class="media">
+                        <div class="media-left">
+                            <a class='btn border-success text-success btn-flat btn-rounded btn-icon btn-xs'><i aria-hidden='true' class='icon-checkmark3'></i></a>
+                        </div>
+
+                        <div class="media-body">
+                            <a asp-controller="Player" asp-action="Detail" asp-route-id="@data.UserId">@data.UserName</a> completed <a asp-action="Index" asp-controller="Games">@data.GameName</a> with<a> @data.Score </a>  points.
+                            <div class="media-annotation"><a>@data.CreatedDate.ToString("HH:mm:ss - dd MMMM yyyy")</a></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /daily financials -->
+    </div>
+</div>
+
+
+<!-- /dashboard content -->
+{{template "content-footer" .}}
+{{template "script-dashboard" .}}
+<script type="text/javascript" src="/static/js/plugins/forms/selects/select2.min.js">onclick</script>
+<script type="text/javascript" src="/static/js/plugins/forms/styling/uniform.min.js"></script>
+<script type="text/javascript" src="/static/js/plugins/ui/moment/moment.min.js"></script>
+<script type="text/javascript" src="/static/js/plugins/ui/fullcalendar/fullcalendar.min.js"></script>
+<script type="text/javascript" src="/static/js/plugins/visualization/echarts/echarts.js"></script>
+
+<script type="text/javascript" src="/static/js/pages/user_pages_profile.js"></script>
+
+<script type="text/javascript">
+    var basic_area;
+    var stacked_lines;
+    $(function () {
+        
+        // Set paths
+        // ------------------------------
+
+        require.config({
+            paths: {
+                echarts: '/static/js/plugins/visualization/echarts'
+            }
+        });
+
+
+        // Configuration
+        // ------------------------------
+
+        require(
+            [
+                'echarts',
+                'echarts/theme/limitless',
+                'echarts/chart/line',
+                'echarts/chart/bar'
+            ],
+            function (ec, limitless) {
+
+                basic_area = ec.init(document.getElementById('basic_area'), limitless);
+                ajaxGraph();
+                window.onresize = function () {
+                    setTimeout(function () {
+                        basic_area.resize();
+                    }, 200);
+                }
+            }
+        );
+
+    });
+
+    $("#Type").on("change", function () {
+        ajaxGraph();
+    });
+
+    $("#Period").on("change", function () {
+        ajaxGraph();
+    });
+
+    $("#period-debby").on("change", function () {
+        var value = $("#period-debby").val();
+        var gameid = 1;
+        var element = $("#body-debby");
+
+        ajaxPeriod(value, gameid, element);
+    });
+    $("#period-viral").on("change", function () {
+        var value = $("#period-viral").val();
+        var gameid = 2;
+        var element = $("#body-viral");
+
+        ajaxPeriod(value, gameid, element);
+    });
+    $("#period-ambulance").on("change", function () {
+        var value = $("#period-ambulance").val();
+        var gameid = 3;
+        var element = $("#body-ambulance");
+
+        ajaxPeriod(value, gameid, element);
+    });
+    $("#graph-type").on("change", function () {
+        ajaxGraph($("#graph-type").val());
+    });
+    $("#monthly").click(function () {
+        ajaxSmallReport("M");
+    });
+    $("#weekly").click(function () {
+        ajaxSmallReport("W");
+    });
+    $("#daily").click(function () {
+        ajaxSmallReport("D");
+    });
+
+    function ajaxGraph() {
+        var type = $("#Type").val();
+        var period = $("#Period").val();
+        console.log(type);
+        console.log(period);
+        $.ajax({
+            url: "/ajaxgamegraph",
+            type: "POST",
+            data: { Type: type, Period: period }
+        }).done(function (response) {
+            data = JSON.parse(response);
+            console.log(data);
+
+            basic_area_options = {
+
+                    // Setup grid
+                    grid: {
+                        x: 40,
+                        x2: 20,
+                        y: 35,
+                        y2: 25
+                    },
+
+                    // Add tooltip
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+
+                    // Add legend
+                    legend: {
+                        data: [data[0].Title, data[1].Title, data[2].Title]
+                    },
+
+                    // Enable drag recalculate
+                    calculable: true,
+
+                    // Hirozontal axis
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        data: data[0].Category
+                    }],
+
+                    // Vertical axis
+                    yAxis: [{
+                        type: 'value'
+                    }],
+
+                    // Add series
+                    series: [
+                        {
+                            name: data[0].Title,
+                            type: "line",
+                            data: data[0].Data
+                        },
+                        {
+                            name: data[1].Title,
+                            type: "line",
+                            data: data[1].Data
+                        },
+                        {
+                            name: data[2].Title,
+                            type: "line",
+                            data: data[2].Data
+                        }
+                    ]
+                };
+
+
+            basic_area.setOption(basic_area_options, true);
+            basic_area.resize();
+        });
+    }
+
+</script>
+
+{{template "end-dashboard" .}}
+{{end}}

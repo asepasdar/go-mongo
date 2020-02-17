@@ -1,0 +1,58 @@
+{{define "content-left"}}
+<!-- Main sidebar -->
+<div class="sidebar sidebar-main sidebar-fixed">
+    <div class="sidebar-content">
+
+        <!-- User menu -->
+        <div class="sidebar-user">
+            <div class="category-content">
+                <div class="media">
+                    <a href="#" class="media-left"><img src="/static/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                    <div class="media-body">
+                        <span class="media-heading text-semibold">admin</span>
+                        <div class="text-size-mini text-muted">
+                            <i aria-hidden='true' class="icon-pin text-size-small"></i> &nbsp;SEA, Indonesia
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /user menu -->
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+
+                    <!-- Main -->
+                    <li class="navigation-header"><span>Home</span> <i aria-hidden='true' class="icon-menu" title="Main pages"></i></li>
+                    <li class="active"><a asp-controller="Home" asp-action="index"><i aria-hidden='true' class="icon-home4"></i> <span>Dashboard</span></a></li>
+                    <!-- /main -->
+
+                    <!-- Tables -->
+                    <li class="navigation-header"><span>Tables</span> <i aria-hidden='true' class="icon-menu" title="Tables"></i></li>
+                    <li><a asp-controller="Player" asp-action="Index"><i aria-hidden='true' class="icon-users4"></i> <span>Player Data</span></a></li>
+                    <li><a asp-controller="Games" asp-action="Index"><i aria-hidden='true' class="icon-dice"></i> <span>Game Data</span></a></li>
+                    <li>
+                        <a href="#"><i class="icon-presentation" aria-hidden="true"></i> <span>Ads</span></a>
+                        <ul>
+                            <li><a asp-controller="Ads" asp-action="Index"><i class="icon-images3" aria-hidden="true"></i> Ads Data</a></li>
+                            <li><a asp-controller="Ads" asp-action="Add"><i class="icon-file-plus2" aria-hidden="true"></i> Add new ads</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="navigation-header"><span>Export</span> <i aria-hidden='true' class="icon-file-zip2" title="Export"></i></li>
+                    <li><a asp-controller="Games" asp-action="Export"><i aria-hidden='true' class="icon-file-stats"></i> <span>Export Data</span></a></li>
+
+                    <li class="navigation-header"><span>Config</span> <i aria-hidden='true' class="icon-file-zip2" title="Export"></i></li>
+                    <li><a asp-controller="Games" asp-action="Admin"><i aria-hidden='true' class="icon-hammer-wrench"></i> <span>Admin Config</span></a></li>
+
+
+                </ul>
+            </div>
+        </div>
+        <!-- /main navigation -->
+
+    </div>
+</div>
+<!-- /main sidebar -->
+{{end}}

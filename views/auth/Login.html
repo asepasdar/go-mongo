@@ -1,0 +1,32 @@
+{{define "login"}}
+{{template "header-login" .}}
+<form action="" method="post">
+    <div class="panel panel-body login-form">
+        <div class="text-center">
+            <div class="icon-object border-slate-300 text-slate-300"><i aria-hidden="true" class="icon-reading"></i></div>
+            <h5 class="content-group">Login to your account <small class="display-block">Enter your credentials below</small></h5>
+        </div>
+
+        <div class="form-group has-feedback has-feedback-left">
+            <input type="text" name="Username" class="form-control" placeholder="Username">
+            <div class="form-control-feedback">
+                <em class="icon-user text-muted"></em>
+            </div>
+        </div>
+
+        <div class="form-group has-feedback has-feedback-left">
+            <input type="password" name="Password" class="form-control" placeholder="Password">
+            <div class="form-control-feedback">
+                <i aria-hidden="true" class="icon-lock2 text-muted"></i>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Sign in <i aria-hidden="true" class="icon-circle-right2 position-right"></i></button>
+        </div>
+    </div>
+</form>
+<!-- /simple login form -->
+<!-- Footer -->
+{{template "footer-login" .}}
+{{end}}
