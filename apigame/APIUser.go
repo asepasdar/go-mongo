@@ -5,6 +5,7 @@ import (
 	mapi "admin/models/api"
 	muser "admin/models/user"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -20,16 +21,21 @@ func AddUser(response http.ResponseWriter, request *http.Request) {
 		decoder := json.NewDecoder(request.Body)
 
 		if err := decoder.Decode(&bodyRequest); err != nil {
-			http.Error(response, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			jsonString, _ := json.Marshal(mapi.InternalServerError())
+			response.Header().Set("Content-Type", "application/json")
+			response.WriteHeader(http.StatusInternalServerError)
+			response.Write(jsonString)
 			return
 		}
 		bodyRequest.Created = time.Now()
 		bodyRequest.Updated = time.Now()
 
 		if er := bodyRequest.InsertData(con); er != nil {
+			fmt.Println(er.Error())
 			jsonString, _ := json.Marshal(mapi.MongoExecutionFailed())
 			response.Header().Set("Content-Type", "application/json")
-			response.WriteHeader(http.StatusCreated)
+			response.WriteHeader(http.StatusInternalServerError)
 			response.Write(jsonString)
 			return
 		}

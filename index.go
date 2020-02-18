@@ -17,7 +17,7 @@ func main() {
 	http.HandleFunc("/ajaxgamegraph", c.AjaxGraph)
 
 	http.HandleFunc("/game", api.FindGame)
-	http.HandleFunc("/game/add", api.Add)
+	http.HandleFunc("/game/add", api.AddGame)
 	http.HandleFunc("/game/progress", api.Progress)
 
 	http.HandleFunc("/user", api.FindUser)

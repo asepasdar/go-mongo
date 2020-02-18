@@ -5,6 +5,7 @@ import (
 	mapi "admin/models/api"
 	mgame "admin/models/game"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -51,19 +52,24 @@ func Progress(response http.ResponseWriter, request *http.Request) {
 	}
 }
 
-//Add : add new game
-func Add(response http.ResponseWriter, request *http.Request) {
+//AddGame : add new game
+func AddGame(response http.ResponseWriter, request *http.Request) {
 	if request.Method == "POST" {
 		var bodyRequest mgame.Game
 		var con = db.GetConnection()
 		decoder := json.NewDecoder(request.Body)
 
 		if err := decoder.Decode(&bodyRequest); err != nil {
-			http.Error(response, err.Error(), http.StatusInternalServerError)
+			fmt.Println(err.Error())
+			jsonString, _ := json.Marshal(mapi.InternalServerError())
+			response.Header().Set("Content-Type", "application/json")
+			response.WriteHeader(http.StatusCreated)
+			response.Write(jsonString)
 			return
 		}
 
 		if er := bodyRequest.InsertData(con); er != nil {
+			fmt.Println(er.Error())
 			jsonString, _ := json.Marshal(mapi.MongoExecutionFailed())
 			response.Header().Set("Content-Type", "application/json")
 			response.WriteHeader(http.StatusCreated)
@@ -77,7 +83,7 @@ func Add(response http.ResponseWriter, request *http.Request) {
 	}
 }
 
-//Find : find data game
+//FindGame : find data game
 func FindGame(response http.ResponseWriter, request *http.Request) {
 	if request.Method == "GET" {
 		var con = db.GetConnection()

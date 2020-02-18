@@ -26,12 +26,20 @@ func DataNotFound() BasicResponse {
 	return response
 }
 
-
 //MongoExecutionFailed : failed when try toexecute query/command
 func MongoExecutionFailed() BasicResponse {
 	var response = BasicResponse{
 		Code:    5001,
 		Message: "Database execution failed during operation.",
+	}
+	return response
+}
+
+//InternalServerError : something wrong in server or error code
+func InternalServerError() BasicResponse {
+	var response = BasicResponse{
+		Code:    5002,
+		Message: "Internal Server Error",
 	}
 	return response
 }

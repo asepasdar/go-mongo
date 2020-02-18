@@ -6,13 +6,24 @@ import (
 	"html/template"
 	"net/http"
 
+	db "admin/database"
 	mgame "admin/models/game"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 //Home : handle request to dashboard page
 func Home(response http.ResponseWriter, request *http.Request) {
+	var con = db.GetConnection()
+	objID, _ := primitive.ObjectIDFromHex("5e4a1af143f60bb680c0e436")
+	objID2, _ := primitive.ObjectIDFromHex("5e4a1b1443f60bb680c0e437")
+	objID3, _ := primitive.ObjectIDFromHex("5e4a1b6343f60bb680c0e438")
+
 	var data = templateData{
 		"title": "Dashboard Page | Golang & MongoDB",
+		"data":  mgame.FindLeaderboard(con, &objID),
+		"data1": mgame.FindLeaderboard(con, &objID2),
+		"data2": mgame.FindLeaderboard(con, &objID3),
 	}
 	var tmpl = template.Must(template.ParseFiles(
 		"views/shared/dashboard/_ContentHeader.html",

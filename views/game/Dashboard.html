@@ -90,6 +90,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="body-debby">
+                                        {{range $index, $elem := .data}}
                                         <tr>
                                             <td width="35%">
                                                 <div class="media-left media-middle">
@@ -98,23 +99,24 @@
 
                                                 <div class="media-body">
                                                     <div class="media-heading">
-                                                        <a href="#" class="letter-icon-title">Dummy</a>
+                                                        <a href="#" class="letter-icon-title">{{ (index $elem.User 0).Username }}</a>
                                                     </div>
 
-                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> Going Viral</div>
+                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> {{ (index $elem.Game 0).Title }}</div>
                                                 </div>
                                             </td>
                                             <td width="40%">
                                                 <button type="button" class="btn btn-primary btn-labeled no-change">
-                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>13 February 2020 - 13:02:52
+                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>{{ $elem.DateString }}
                                                 </button>
                                             </td>
                                             <td width="25%">
                                                 <button type="button" class="btn bg-success-400 btn-rounded no-change">
-                                                    <i class="icon-dice position-left"></i>100
+                                                    <i class="icon-dice position-left"></i>{{$elem.Score}}
                                                 </button>
                                             </td>
                                         </tr>
+                                        {{end}}
                                     </tbody>
                                 </table>
                             </div>
@@ -142,6 +144,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="body-viral">
+                                        {{range $index, $elem := .data1}}
                                         <tr>
                                             <td width="35%">
                                                 <div class="media-left media-middle">
@@ -150,23 +153,24 @@
 
                                                 <div class="media-body">
                                                     <div class="media-heading">
-                                                        <a href="#" class="letter-icon-title">Dummy</a>
+                                                        <a href="#" class="letter-icon-title">{{ (index $elem.User 0).Username }}</a>
                                                     </div>
 
-                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> Going Viral</div>
+                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> {{ (index $elem.Game 0).Title }}</div>
                                                 </div>
                                             </td>
                                             <td width="40%">
                                                 <button type="button" class="btn btn-primary btn-labeled no-change">
-                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>13 February 2020 - 13:02:52
+                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>{{ $elem.DateString }}
                                                 </button>
                                             </td>
                                             <td width="25%">
                                                 <button type="button" class="btn bg-success-400 btn-rounded no-change">
-                                                    <i class="icon-dice position-left"></i>100
+                                                    <i class="icon-dice position-left"></i>{{$elem.Score}}
                                                 </button>
                                             </td>
                                         </tr>
+                                        {{end}}
                                     </tbody>
                                 </table>
                             </div>
@@ -194,6 +198,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="body-ambulance">
+                                        {{range $index, $elem := .data2}}
                                         <tr>
                                             <td width="35%">
                                                 <div class="media-left media-middle">
@@ -202,23 +207,24 @@
 
                                                 <div class="media-body">
                                                     <div class="media-heading">
-                                                        <a href="#" class="letter-icon-title">Dummy</a>
+                                                        <a href="#" class="letter-icon-title">{{ (index $elem.User 0).Username }}</a>
                                                     </div>
 
-                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> Going Viral</div>
+                                                    <div class="text-muted text-size-small"><i class="icon-dice text-size-mini position-left"></i> {{ (index $elem.Game 0).Title }}</div>
                                                 </div>
                                             </td>
                                             <td width="40%">
                                                 <button type="button" class="btn btn-primary btn-labeled no-change">
-                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>13 February 2020 - 13:02:52
+                                                    <b><i class="icon-calendar52" aria-hidden="true"></i></b>{{ $elem.DateString }}
                                                 </button>
                                             </td>
                                             <td width="25%">
                                                 <button type="button" class="btn bg-success-400 btn-rounded no-change">
-                                                    <i class="icon-dice position-left"></i>100
+                                                    <i class="icon-dice position-left"></i>{{$elem.Score}}
                                                 </button>
                                             </td>
                                         </tr>
+                                        {{end}}
                                     </tbody>
                                 </table>
                             </div>
@@ -311,7 +317,7 @@
                         </div>
 
                         <div class="media-body">
-                            <a asp-controller="Player" asp-action="Detail" asp-route-id="@data.UserId">@data.UserName</a> completed <a asp-action="Index" asp-controller="Games">@data.GameName</a> with<a> @data.Score </a>  points.
+                            <a href="#">@data.UserName</a> completed <a asp-action="Index" asp-controller="Games">@data.GameName</a> with<a> @data.Score </a>  points.
                             <div class="media-annotation"><a>@data.CreatedDate.ToString("HH:mm:ss - dd MMMM yyyy")</a></div>
                         </div>
                     </li>
