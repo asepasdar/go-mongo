@@ -1,0 +1,50 @@
+ARG DOCK_JDK_VER
+
+#STEP CODE SCAN, BUILD & PUBLISH PROJECT
+FROM openjdk:${DOCK_JDK_VER}
+
+#Install Requirements Environment
+RUN apt-get update && \
+    apt-get install -y curl git tmux htop maven && \
+    curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    apt-get install -y nodejs && \
+    apt-get install -y build-essential && \
+    rm -rf /var/lib/apt/lists/* /var/cache/* /tmp/* /var/tmp/*
+
+#Setup ENV & ARG
+ARG CI_COMMIT_SHA
+ARG CI_COMMIT_REF_NAME
+ARG CI_PROJECT_ID
+ARG CI_DISABLE_REPORT
+ARG CI_ALLISSUE_REPORT
+ARG SONAR_HOST_URL
+ARG SONAR_AUTH_KEY
+ARG SONAR_AUTH_TOKEN
+ARG SONAR_PROJ_NAME
+ARG SONAR_SCANNER_OPTS
+ARG SONAR_RUNNER_HOME
+ENV PATH="$PATH:${SONAR_RUNNER_HOME}/bin"
+ENV SONAR_WORKDIR=/sonar-scanner
+
+#Copy Proj to WORKDIR
+WORKDIR ${SONAR_WORKDIR}
+COPY . ./
+
+#Install Sonarscanner
+RUN mkdir ${SONAR_RUNNER_HOME} && \
+    mv sonar-scanner/* ${SONAR_RUNNER_HOME}
+
+#Run Scan and Analysis
+RUN sonar-scanner \
+    -Dsonar.host.url="${SONAR_HOST_URL}" \
+    -Dsonar.projectKey="${SONAR_AUTH_KEY}" \
+    -Dsonar.projectName="${SONAR_PROJ_NAME}" \
+    -Dsonar.login="${SONAR_AUTH_TOKEN}" \
+    -Dsonar.sources="${SONAR_WORKDIR}" \
+    -Dsonar.verbose=false \
+    -Dsonar.sourceEncoding=UTF-8 \
+    -Dsonar.gitlab.commit_sha="${CI_COMMIT_SHA}" \
+    -Dsonar.gitlab.ref_name="${CI_COMMIT_REF_NAME}" \
+    -Dsonar.gitlab.project_id="${CI_PROJECT_ID}" \
+    -Dsonar.gitlab.all_issues="${CI_ALLISSUE_REPORT}"
