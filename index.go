@@ -3,16 +3,20 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"time"
 
 	api "admin/apigame"
+	conf "admin/config"
 	c "admin/controllers"
 	db "admin/database"
 	mapi "admin/models/api"
 )
 
+//File config will be executed first (func init())
 func main() {
-	db.Initialize()
+	db.Initialize(conf.Configuration.Database.URI, conf.Configuration.Database.Name)
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("assets"))))
 	http.HandleFunc("/", c.Login)
@@ -28,8 +32,16 @@ func main() {
 	http.Handle("/user", middlewareGet(http.HandlerFunc(api.FindUser)))
 	http.Handle("user/add", middlewarePost(http.HandlerFunc(api.AddUser)))
 
-	fmt.Println("server started at localhost:9000")
-	http.ListenAndServe(":9000", nil)
+	server := new(http.Server)
+	server.ReadTimeout = conf.Configuration.Server.ReadTimeout * time.Second
+	server.WriteTimeout = conf.Configuration.Server.WriteTimeout * time.Second
+	server.Addr = fmt.Sprintf(":%d", conf.Configuration.Server.Port)
+
+	log.Println("server started at", conf.Configuration.Server.Port)
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
 
 }
 

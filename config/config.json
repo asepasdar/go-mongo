@@ -1,0 +1,12 @@
+{
+    "server": {
+        "port": 9000,
+        "read_timeout": 5,
+        "write_timeout": 5
+    },
+
+    "database": {
+        "uri": "mongodb://localhost:27017",
+        "name": "web-golang"
+    }
+}

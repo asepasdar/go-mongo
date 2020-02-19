@@ -4,6 +4,7 @@ import (
 	madmin "admin/models/admin"
 	"context"
 	"fmt"
+	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -15,10 +16,9 @@ var connection *mongo.Database
 /* PUBLIC FUNCTION RIGHT HERE */
 
 //Initialize : create connection to MongoDB (localhost)
-func Initialize() {
-	fmt.Print("try connect to database : ")
+func Initialize(dbURI string, dbName string) {
 	clientOptions := options.Client()
-	clientOptions.ApplyURI("mongodb://localhost:27017")
+	clientOptions.ApplyURI(dbURI)
 	client, err := mongo.NewClient(clientOptions)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -30,8 +30,8 @@ func Initialize() {
 		fmt.Println(err.Error())
 		return
 	}
-	fmt.Println("success")
-	connection = client.Database("web-golang")
+	log.Println("try connect to database :  success")
+	connection = client.Database(dbName)
 	createAdmin()
 }
 
