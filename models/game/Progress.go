@@ -49,12 +49,6 @@ func (p Progress) InsertData(con *mongo.Database) error {
 	return err
 }
 
-//DateString : Return date time to string
-func (l Leaderboard) DateString() string {
-	var result = l.Created.Format("02 January 2006 - 15:04")
-	return result
-}
-
 //FindAllProgress : select all data from progress depends on criteria
 func FindAllProgress(con *mongo.Database, criteria map[string]interface{}) []Progress {
 	var ctx = context.Background()

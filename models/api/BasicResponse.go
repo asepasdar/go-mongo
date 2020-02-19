@@ -26,6 +26,16 @@ func DataNotFound() BasicResponse {
 	return response
 }
 
+//WrongHTTPMethod : invalid http method
+func WrongHTTPMethod() BasicResponse {
+	var response = BasicResponse{
+		Code:    4002,
+		Message: "Invalid HTTP method",
+	}
+
+	return response
+}
+
 //MongoExecutionFailed : failed when try toexecute query/command
 func MongoExecutionFailed() BasicResponse {
 	var response = BasicResponse{
@@ -39,7 +49,16 @@ func MongoExecutionFailed() BasicResponse {
 func InternalServerError() BasicResponse {
 	var response = BasicResponse{
 		Code:    5002,
-		Message: "Internal Server Error",
+		Message: "Internal server error",
+	}
+	return response
+}
+
+//ErrorParsingBody : error when decode body to struct
+func ErrorParsingBody() BasicResponse {
+	var response = BasicResponse{
+		Code:    5003,
+		Message: "Error when parsing body",
 	}
 	return response
 }

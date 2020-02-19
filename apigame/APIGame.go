@@ -25,7 +25,10 @@ func Progress(response http.ResponseWriter, request *http.Request) {
 		con := db.GetConnection()
 
 		if err := decoder.Decode(&requestObject); err != nil {
-			http.Error(response, err.Error(), http.StatusInternalServerError)
+			jsonString, _ := json.Marshal(mapi.ErrorParsingBody())
+			response.Header().Set("Content-Type", "application/json")
+			response.WriteHeader(http.StatusInternalServerError)
+			response.Write(jsonString)
 			return
 		}
 
@@ -41,7 +44,7 @@ func Progress(response http.ResponseWriter, request *http.Request) {
 		if er := data.InsertData(con); er != nil {
 			jsonString, _ := json.Marshal(mapi.MongoExecutionFailed())
 			response.Header().Set("Content-Type", "application/json")
-			response.WriteHeader(http.StatusCreated)
+			response.WriteHeader(http.StatusInternalServerError)
 			response.Write(jsonString)
 			return
 		}
@@ -54,33 +57,31 @@ func Progress(response http.ResponseWriter, request *http.Request) {
 
 //AddGame : add new game
 func AddGame(response http.ResponseWriter, request *http.Request) {
-	if request.Method == "POST" {
-		var bodyRequest mgame.Game
-		var con = db.GetConnection()
-		decoder := json.NewDecoder(request.Body)
+	var bodyRequest mgame.Game
+	var con = db.GetConnection()
+	decoder := json.NewDecoder(request.Body)
 
-		if err := decoder.Decode(&bodyRequest); err != nil {
-			fmt.Println(err.Error())
-			jsonString, _ := json.Marshal(mapi.InternalServerError())
-			response.Header().Set("Content-Type", "application/json")
-			response.WriteHeader(http.StatusCreated)
-			response.Write(jsonString)
-			return
-		}
-
-		if er := bodyRequest.InsertData(con); er != nil {
-			fmt.Println(er.Error())
-			jsonString, _ := json.Marshal(mapi.MongoExecutionFailed())
-			response.Header().Set("Content-Type", "application/json")
-			response.WriteHeader(http.StatusCreated)
-			response.Write(jsonString)
-			return
-		}
-
-		jsonString, _ := json.Marshal(mapi.SuccessMessage())
+	if err := decoder.Decode(&bodyRequest); err != nil {
+		fmt.Println(err.Error())
+		jsonString, _ := json.Marshal(mapi.ErrorParsingBody())
 		response.Header().Set("Content-Type", "application/json")
+		response.WriteHeader(http.StatusInternalServerError)
 		response.Write(jsonString)
+		return
 	}
+
+	if er := bodyRequest.InsertData(con); er != nil {
+		fmt.Println(er.Error())
+		jsonString, _ := json.Marshal(mapi.MongoExecutionFailed())
+		response.Header().Set("Content-Type", "application/json")
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write(jsonString)
+		return
+	}
+
+	jsonString, _ := json.Marshal(mapi.SuccessMessage())
+	response.Header().Set("Content-Type", "application/json")
+	response.Write(jsonString)
 }
 
 //FindGame : find data game

@@ -13,6 +13,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+//AuthUser : authentication
+func AuthUser(response http.ResponseWriter, request *http.Request) {
+	jsonString, _ := json.Marshal(mapi.SuccessMessage())
+	response.Header().Set("Content-Type", "application/json")
+	response.Write(jsonString)
+	return
+}
+
 //AddUser : add new user
 func AddUser(response http.ResponseWriter, request *http.Request) {
 	if request.Method == "POST" {
