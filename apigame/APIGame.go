@@ -89,7 +89,6 @@ func FindGame(response http.ResponseWriter, request *http.Request) {
 	var con = db.GetConnection()
 	var collectionID = request.URL.Query().Get("id")
 	if collectionID != "" {
-
 		objID, _ := primitive.ObjectIDFromHex(collectionID)
 		var data = mgame.FindGame(con, bson.M{"_id": objID})
 
