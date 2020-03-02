@@ -10,7 +10,7 @@ type BasicResponse struct {
 func SuccessMessage() BasicResponse {
 	var response = BasicResponse{
 		Code:    2000,
-		Message: "Succss",
+		Message: "Success",
 	}
 
 	return response
@@ -33,6 +33,15 @@ func WrongHTTPMethod() BasicResponse {
 		Message: "Invalid HTTP method",
 	}
 
+	return response
+}
+
+//Unauthorized : unauthorized http request
+func Unauthorized() BasicResponse {
+	var response = BasicResponse{
+		Code:    4003,
+		Message: "Unauthorized request",
+	}
 	return response
 }
 
